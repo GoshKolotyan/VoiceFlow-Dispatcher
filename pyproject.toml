@@ -8,4 +8,5 @@ dependencies = [
     "azure-cognitiveservices-speech>=1.47.0",
     "pyaudio>=0.2.14",
     "pydantic>=2.12.5",
+    "rich>=14.2.0",
 ]
