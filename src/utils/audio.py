@@ -3,16 +3,16 @@ import pyaudio
 import azure.cognitiveservices.speech as speechsdk
 
 from src.core import LoggerFactory
-from src.config import settings
+from src.config import Settings
 
 class AudioProcessor:
     def __init__(self):
         self.logger = LoggerFactory.create_logger(name="AudioProcessor", level="INFO")
-        # add here try catch for azure init
+        self.settings = Settings()  # type: ignore
         try:
             self.speech_config = speechsdk.SpeechConfig(
-                subscription=settings.AZURE_SPEECH_KEY,
-                region=settings.AZURE_SPEECH_REGION
+                subscription=self.settings.AZURE_SPEECH_KEY,
+                region=self.settings.AZURE_SPEECH_REGION
             )
             self.speech_config.speech_recognition_language = "en-US"
             self.speech_config.speech_synthesis_voice_name = "en-US-DavisNeural"
