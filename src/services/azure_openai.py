@@ -110,9 +110,8 @@ Be lenient with informal language and handle messy speech-to-text transcriptions
                 model=self.model,
                 messages=messages,
                 tools=self.tools,
-                tool_choice="auto",
-                temperature=0.1,  # Low temperature for consistent extraction
-                max_tokens=500
+                tool_choice="required",
+                max_completion_tokens=500
             )
 
             message = response.choices[0].message
@@ -126,7 +125,7 @@ Be lenient with informal language and handle messy speech-to-text transcriptions
                     intent=IntentType(arguments.get("intent", "unknown")),
                     customer=arguments.get("customer"),
                     action=arguments.get("action"),
-                    parts=arguments.get("parts", []),
+                    parts=arguments.get("parts") or [],
                     billing_hours=arguments.get("billing_hours"),
                     job_id=arguments.get("job_id"),
                     notes=arguments.get("notes"),
@@ -207,13 +206,17 @@ Generate an appropriate response."""
             response = await self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                temperature=0.7,  # Higher temp for more natural responses
-                max_tokens=150
+                max_completion_tokens=150
             )
 
             response_text = response.choices[0].message.content or ""
-            self.logger.info(f"Generated response: '{response_text[:50]}...'")
 
+            # If model returns empty response, use fallback
+            if not response_text.strip():
+                self.logger.warning("Model returned empty response, using fallback")
+                return self._generate_fallback_response(intent, context, style)
+
+            self.logger.info(f"Generated response: '{response_text[:50]}...'")
             return response_text
 
         except Exception as e:

@@ -45,7 +45,7 @@ class AudioProcessor:
             return ""
     def speak_text(self, text):
         "Converting text to speech and playing it through speakers."
-        audio_config = speechsdk.audio.AudioConfig(use_default_speaker=True)
+        audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
         
         synthesizer = speechsdk.SpeechSynthesizer(
             speech_config=self.speech_config, 

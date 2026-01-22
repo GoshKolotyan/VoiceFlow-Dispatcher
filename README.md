@@ -30,3 +30,6 @@ AZURE_SPEECH_KEY=your_azure_speech_key_here
 AZURE_SERVICEBUS_CONN_STR=your_azure_servicebus_connection_string_here
 POSTGRES_URI=your_postgres_database_uri_here
 ```
+
+> **_NOTE:_** for the best experent please use *gpt-4.1* models (mini, nano ,etc.)
+
