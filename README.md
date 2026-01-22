@@ -19,3 +19,14 @@ VoiceFlow-Dispatcher is a **real-time, asynchronous voice dispatcher** designed 
     * **RL Layer:** Selects response strategy (Concise vs. Detailed).
     * **Action:** Executes SQL transaction in **PostgreSQL**.
 4.  **Response:** Generates Azure Neural TTS audio.
+
+
+## 3. Env example
+```
+AZURE_OPENAI_KEY=your_azure_openai_key_here
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_SPEECH_REGION=eastus
+AZURE_SPEECH_KEY=your_azure_speech_key_here
+AZURE_SERVICEBUS_CONN_STR=your_azure_servicebus_connection_string_here
+POSTGRES_URI=your_postgres_database_uri_here
+```
